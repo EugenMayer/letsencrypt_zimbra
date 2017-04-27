@@ -11,7 +11,8 @@ DOMAIN=$1
 ####################################################################################################
 ###### LEAVE THOSE ALONE ###########################################################################
 # path of your certificat
-CERTPATH=/etc/ssl/letsencrypt/$DOMAIN/$DOMAIN.cer
+CERTPATH_SOURCE=/etc/ssl/letsencrypt/$DOMAIN/$DOMAIN.cer
+CERTPATH=/opt/zimbra/data/le_cert.cer
 # path of your ca.cer, should be next to you certificate (downloaded by le automatically)
 CAPATH_SOURCE=/etc/ssl/letsencrypt/$DOMAIN/ca.cer
 # just leave that
@@ -21,15 +22,21 @@ ROOTPATH=/etc/ssl/le_root.cer
 KEYPATH=/etc/ssl/letsencrypt/$DOMAIN/$DOMAIN.key
 
 echo "adding root.cer ca.cer to the end of the certificate due to the keytool greatness... we have to add the root "
-sudo -u zimbra cp $CAPATH_SOURCE $CAPATH
+cp $CAPATH_SOURCE $CAPATH
 # concat CA to the end of CERT
-sudo -u zimbra cat $ROOTPATH >> $CAPATH
+cat $ROOTPATH >> $CAPATH
+chown zimbra:zimbra $CAPATH
 
-echo "verify cert"
-sudo -u zimbra /opt/zimbra/bin/zmcertmgr verifycrt comm $KEYPATH $CERTPATH $CAPATH
+echo "copy cert"
+cp $CERTPATH_SOURCE $CERTPATH
+chown zimbra:zimbra $CERTPATH
 
 echo "copying private key to /opt/zimbra/ssl/zimbra/commercial/commercial.key"
-sudo -u zimbra cp $KEYPATH /opt/zimbra/ssl/zimbra/commercial/commercial.key
+cp $KEYPATH /opt/zimbra/ssl/zimbra/commercial/commercial.key
+chown zimbra:zimbra /opt/zimbra/ssl/zimbra/commercial/commercial.key
+
+echo "verify cert"
+sudo -u zimbra /opt/zimbra/bin/zmcertmgr verifycrt comm /opt/zimbra/ssl/zimbra/commercial/commercial.key $CERTPATH $CAPATH
 
 echo "installing certificate"
 sudo -u zimbra /opt/zimbra/bin/zmcertmgr deploycrt comm $CERTPATH $CAPATH
