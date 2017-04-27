@@ -11,7 +11,10 @@ chmod +x /usr/local/bin/install_zimbra_le
 
 2. install acme (this will place the cronjob we need for the renewals): 
 
-```curl https://get.acme.sh | sh```
+```
+export LE_WORKING_DIR=/etc/ssl/letsencrypt
+curl https://get.acme.sh | sh
+```
 
 3. Download the LetsEncrypt root certificate
 a) either pick it from here https://gist.github.com/EugenMayer/8396b811f9649c4ee0840862262639b4
@@ -27,6 +30,7 @@ TODO: how to script this?
 Replace <domain> ( 2 times! )
 
 ```
+cd /etc/ssl/letsencrypt
 ./acme.sh --issue --dns dns_cf --dnssleep 25 -d <domain> --reloadcmd "/usr/local/bin/install_zimbra_le <domain>"
 ```
 
