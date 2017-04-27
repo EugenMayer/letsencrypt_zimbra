@@ -9,7 +9,7 @@ mv install_zimbra_le /usr/local/bin/
 chmod +x /usr/local/bin/install_zimbra_le
 ````
 
-2. install acmei (this will place the cronjob we need for the renewals): 
+2. install acme (this will place the cronjob we need for the renewals): 
 
 ```wget https://get.acme.sh | sh```
 
@@ -24,7 +24,7 @@ TODO: how to script this?
 Replace <domain> ( 2 times! )
 
 ```
- ./acme.sh --issue --dns dns_cf --dnssleep 25 -d <domain> --reloadcmd "/usr/loca/bin/install_zimbra_le <domain>"
+./acme.sh --issue --dns dns_cf --dnssleep 25 -d <domain> --reloadcmd "/usr/local/bin/install_zimbra_le <domain>"
 ```
 
 Thats it, this command is a one-shot. The cronjob takes care of the renewal and of the automatic install into zimbra
