@@ -21,6 +21,7 @@ CAPATH=/opt/zimbra/data/le_ca.cer
 ROOTPATH=/etc/ssl/le_root.cer
 KEYPATH=/etc/ssl/letsencrypt/$DOMAIN/$DOMAIN.key
 
+cd /opt/zimbra
 echo "adding root.cer ca.cer to the end of the certificate due to the keytool greatness... we have to add the root "
 cp $CAPATH_SOURCE $CAPATH
 # concat CA to the end of CERT
