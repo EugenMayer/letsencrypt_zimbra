@@ -35,5 +35,14 @@ cd /etc/ssl/letsencrypt
 ```
 
 In the upper case iam using DNS verification, you can though pick what you want, read https://github.com/Neilpang/acme.sh
+I use https://www.cloudflare.com since they offer free accounts. If you want to do so, you need then, before running acme.sh do
+
+```
+export CF_Email=<youraccountmail>
+export CF_Key=<yourglobalapikey>
+acme.sh
+```
+
+After running acme once with the CF credentials, they will be saved and you do no longer need to use export
 
 Thats it, this command is a one-shot. The cronjob takes care of the renewal and of the automatic install into zimbra
