@@ -14,8 +14,10 @@ chmod +x /usr/local/bin/install_zimbra_le
 ```wget https://get.acme.sh | sh```
 
 3. Download the LetsEncrypt root certificate
-Get it from https://www.identrust.com/certificates/trustid/root-download-x3.html and put it to /etc/ssl/le_root.cer
+Get it from https://www.identrust.com/certificates/trustid/root-download-x3.html and put it to ```/etc/ssl/le_root.cer```
+
 Also see https://letsencrypt.org/certificates/
+TODO: how to script this? 
 
 ### Get your certificate
 
