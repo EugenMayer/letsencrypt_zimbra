@@ -46,3 +46,21 @@ acme.sh
 After running acme once with the CF credentials, they will be saved and you do no longer need to use export
 
 Thats it, this command is a one-shot. The cronjob takes care of the renewal and of the automatic install into zimbra
+
+### cron
+
+When you are finished, verify that your cron is configured properly. There might be 
+
+```
+crontab -e
+4 0 * * * "/root/.acme.sh"/acme.sh --debug --cron --home "/root/.acme.sh"
+```
+
+which would be wrong. We need to fix the home parameter
+
+```
+crontab -e
+4 0 * * * "/root/.acme.sh"/acme.sh --debug --cron --home "/etc/ssl/letsencrypt"
+```
+
+Or 
