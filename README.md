@@ -9,6 +9,16 @@ mv install_zimbra_le /usr/local/bin/
 chmod +x /usr/local/bin/install_zimbra_le
 ````
 
+due to a bug in Zimbra, when dnscache is enabled, you cannot restart without providing a sudo password. Please add this to 
+
+`vim /etc/sudoers.d/zimbra_sudo_fix`
+
+```
+%zimbra ALL=NOPASSWD:/opt/zimbra/libexec/zmdnscachealign
+%zimbra ALL=NOPASSWD:/opt/zimbra/common/sbin/unbound
+%zimbra ALL=NOPASSWD:/sbin/resolvconf
+```
+
 2. install acme (this will place the cronjob we need for the renewals): 
 
 ```
