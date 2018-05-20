@@ -42,7 +42,9 @@ sudo -u zimbra /opt/zimbra/bin/zmcertmgr verifycrt comm /opt/zimbra/ssl/zimbra/c
 echo "installing certificate"
 sudo -u zimbra /opt/zimbra/bin/zmcertmgr deploycrt comm $CERTPATH $CAPATH
 
-# TODO: it seems that does not work as we want to, we are getting asked for a sudo password when restarting
-# dnscache: Stopping dnscache...[sudo] password for zimbra:
-# is there a better way to restart?
+# To make this work, we need to fix sudo for dnscache
+# %zimbra ALL=NOPASSWD:/opt/zimbra/libexec/zmdnscachealign
+# %zimbra ALL=NOPASSWD:/opt/zimbra/common/sbin/unbound
+# %zimbra ALL=NOPASSWD:/sbin/resolvconf
+# needs to be added to /etc/sudoers.d/zimbra_sudo_fix
 sudo -u zimbra /opt/zimbra/bin/zmcontrol restart
