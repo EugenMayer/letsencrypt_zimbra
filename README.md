@@ -41,7 +41,8 @@ Replace <domain> ( 2 times! )
 
 ```
 cd /etc/ssl/letsencrypt
-./acme.sh --issue --dns dns_cf --dnssleep 25 -d <domain> --reloadcmd "/usr/local/bin/install_zimbra_le <domain>"
+export DOMAIN=yourdomain.tld
+./acme.sh --issue --dns dns_cf --dnssleep 25 -d $DOMAIN --reloadcmd "/usr/local/bin/install_zimbra_le $DOMAIN"
 ```
 
 In the upper case iam using DNS verification, you can though pick what you want, read https://github.com/Neilpang/acme.sh
@@ -72,5 +73,3 @@ which would be wrong. We need to fix the home parameter
 crontab -e
 4 0 * * * "/root/.acme.sh"/acme.sh --debug --cron --home "/etc/ssl/letsencrypt"
 ```
-
-Or 
